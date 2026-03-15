@@ -14,34 +14,12 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { providerRoutes } from "@/app/routes/providerRoutes";
 
 // This is sample data.
-const data = {
-  navMain: [
-    {
-      title: "Provider Dashboard",
-      url: "#",
-      items: [
-        {
-          title: "Update Profile",
-          url: "#",
-        },
-        {
-          title: "Customize Menu",
-          url: "#",
-        },
-        {
-          title: "View Orders",
-          url: "#",
-        },
-        {
-          title: "Go to Home",
-          url: "/",
-        },
-      ],
-    },
-  ],
-};
+
+
+
 
 export function ProviderDashboard({
   ...props
@@ -51,7 +29,7 @@ export function ProviderDashboard({
       <SidebarHeader></SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
+        {providerRoutes.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel className="text-xl font-bold my-4">
               {item.title}

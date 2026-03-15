@@ -1,16 +1,21 @@
-'use client'
+import { mealService } from "@/app/services/meal.service";
+import { MealType } from "@/app/types/mealType";
+import MealCard from "@/components/ui/mealCard";
 
-import { authClient } from "@/lib/auth-client"
+const Meal = async () => {
+  const { data } = await mealService.getMeals();
+  console.log(data);
 
-const Meals = () => {
-  
-  const session = authClient.getSession();
-  console.log(session)
   return (
-    <div>This is Meals Page
-      
+    <div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 my-10 place-items-center">
+        {data?.data?.map((meal: MealType) => {
+          return <MealCard key={meal.id} meal={meal}></MealCard>;
+        })}
+        Hello
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Meals
+export default Meal;

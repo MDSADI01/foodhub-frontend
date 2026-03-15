@@ -22,12 +22,18 @@ import {
 import Link from "next/link";
 import { ModeToggle } from "./modeToggle";
 import { ProfileDrop } from "../ui/profile-drop";
+import { userService } from "@/app/services/user.service";
+import { useEffect, useState } from "react";
 
 interface Navbar5Props {
   className?: string;
+  session:any
 }
 
-const Navbar = ({ className }: Navbar5Props) => {
+const Navbar = ({ className,session }: Navbar5Props) => {
+   
+  console.log(session);
+
   return (
     <section className={cn("py-4", className)}>
       <div className="container">
@@ -39,7 +45,7 @@ const Navbar = ({ className }: Navbar5Props) => {
           </Link>
           <NavigationMenu className="hidden lg:block">
             <NavigationMenuList>
-            <NavigationMenuItem>
+              <NavigationMenuItem>
                 <NavigationMenuLink
                   href="/"
                   className={navigationMenuTriggerStyle()}
@@ -74,14 +80,20 @@ const Navbar = ({ className }: Navbar5Props) => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            <ProfileDrop></ProfileDrop>
+            <ProfileDrop session={session}></ProfileDrop>
             <ModeToggle></ModeToggle>
-            <Link href="/login">
-              <Button variant="outline">Sign in</Button>
-            </Link>
-            <Link href="/register">
-              <Button>Sign up</Button>
-            </Link>
+            {session ? (
+              ""
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="outline">Sign in</Button>
+                </Link>
+                <Link href="/register">
+                  <Button>Sign up</Button>
+                </Link>
+              </>
+            )}
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
@@ -115,14 +127,20 @@ const Navbar = ({ className }: Navbar5Props) => {
                   </a>
                 </div>
                 <div className="mt-6 flex flex-col gap-4">
-                  <ProfileDrop></ProfileDrop>
+                  <ProfileDrop session={session}></ProfileDrop>
                   <ModeToggle></ModeToggle>
-                  <Link href="/login">
-                    <Button variant="outline">Sign in</Button>
-                  </Link>
-                  <Link href="/register">
-                    <Button>Sign up</Button>
-                  </Link>
+                  {session ? (
+                        ""
+                  ) : (
+                    <>
+                    <Link href="/login">
+                      <Button variant="outline">Sign in</Button>
+                    </Link>
+                    <Link href="/register">
+                      <Button>Sign up</Button>
+                    </Link>
+                  </>
+                  )}
                 </div>
               </div>
             </SheetContent>

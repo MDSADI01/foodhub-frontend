@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,8 +15,27 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ProfilePic } from "./profile-pic";
+import { sessionType } from "@/app/types/session";
+import { useRouter } from "next/navigation";
 
-export function ProfileDrop() {
+
+export function ProfileDrop({ session }: sessionType) {
+  const router = useRouter();
+
+  const handleProfile = () => {
+    const role = session?.user?.role;
+
+    console.log(session);
+
+    const roleRoutes: any = {
+      ADMIN: "/adminProfile",
+      CUSTOMER: "/profile",
+      PROVIDER: "/providerProfile",
+    };
+
+    router.push(roleRoutes[role] || "/");
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,7 +46,7 @@ export function ProfileDrop() {
       <DropdownMenuContent className="w-40" align="start">
         <DropdownMenuGroup>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleProfile}>
             Profile
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>

@@ -14,34 +14,10 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { customerRoutes } from "@/app/routes/customerRoutes";
 
 // This is sample data.
-const data = {
-  navMain: [
-    {
-      title: "User Dashboard",
-      url: "#",
-      items: [
-        {
-          title: "Manage Profile",
-          url: "#",
-        },
-        {
-          title: "Track Order Status",
-          url: "#",
-        },
-        {
-          title: "My reviews",
-          url: "#",
-        },
-        {
-          title: "Go to Home",
-          url: "/",
-        },
-      ],
-    },
-  ],
-};
+
 
 export function CustomerDashboard({
   ...props
@@ -51,7 +27,7 @@ export function CustomerDashboard({
       <SidebarHeader></SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
+        {customerRoutes.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel className="text-2xl font-bold my-4">
               {item.title}

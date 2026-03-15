@@ -16,32 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 
 // This is sample data.
-const data = {
-  navMain: [
-    {
-      title: "Admin Dashboard",
-      url: "#",
-      items: [
-        {
-          title: "Get All Users",
-          url: "#",
-        },
-        {
-          title: "View All Orders",
-          url: "#",
-        },
-        {
-          title: "Manage Categories",
-          url: "#",
-        },
-        {
-          title: "Go to Home",
-          url: "/",
-        },
-      ],
-    },
-  ],
-};
+
 
 export function AdminDashboard({
   ...props
@@ -51,7 +26,7 @@ export function AdminDashboard({
       <SidebarHeader></SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
+        {adminRoutes.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel className="text-2xl font-bold my-4">
               {item.title}
