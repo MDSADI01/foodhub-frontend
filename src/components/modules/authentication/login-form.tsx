@@ -31,6 +31,7 @@ import { authClient } from "@/lib/auth-client";
 import z from "zod";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().min(6, "Email is required"),
@@ -41,6 +42,8 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
+
   const form = useForm({
     defaultValues: {
       email: "",
@@ -50,32 +53,26 @@ export function LoginForm({
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const toastId =  toast.loading("Logging User")
-      try{
-        
-        const {data, error} = await authClient.signIn.email(value)
-        console.log(data,error);
+      const toastId = toast.loading("Logging User");
+      try {
+        const { data, error } = await authClient.signIn.email(value);
+        console.log(data, error);
 
         if (data) {
-        
           toast.success("User logged in Successfully", { id: toastId });
         }
-          
-          if(error){
-           return toast.error(error.message, {id: toastId})
-            
-          }
-         
-           
 
+        if (error) {
+          return toast.error(error.message, { id: toastId });
+        }
 
-      }
-      catch(err){
-         toast.error("Something went wrong",{id:toastId}) 
+        router.refresh();
+        router.push("/");
+      } catch (err) {
+        toast.error("Something went wrong", { id: toastId });
       }
     },
   });
-
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -142,7 +139,11 @@ export function LoginForm({
             </FieldGroup>
           </CardContent>
           <CardFooter className="flex justify-center mt-5">
-            <Button className="w-full" type="submit" disabled={form.state.isSubmitting}>
+            <Button
+              className="w-full"
+              type="submit"
+              disabled={form.state.isSubmitting}
+            >
               Login to your Account
             </Button>
           </CardFooter>

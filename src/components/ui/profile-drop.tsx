@@ -17,6 +17,7 @@ import {
 import { ProfilePic } from "./profile-pic";
 import { sessionType } from "@/app/types/session";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 
 export function ProfileDrop({ session }: sessionType) {
@@ -36,6 +37,17 @@ export function ProfileDrop({ session }: sessionType) {
     router.push(roleRoutes[role] || "/");
   };
 
+  const handleLogOut = async() =>{
+    await authClient.signOut({
+      fetchOptions:{
+        onSuccess: ()=>{
+          router.push("/login");
+        }
+      }
+    })
+    router.refresh();
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -53,7 +65,7 @@ export function ProfileDrop({ session }: sessionType) {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogOut}>
             Log out
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>

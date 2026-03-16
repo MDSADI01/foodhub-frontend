@@ -22,8 +22,6 @@ import {
 import Link from "next/link";
 import { ModeToggle } from "./modeToggle";
 import { ProfileDrop } from "../ui/profile-drop";
-import { userService } from "@/app/services/user.service";
-import { useEffect, useState } from "react";
 
 interface Navbar5Props {
   className?: string;
@@ -32,15 +30,14 @@ interface Navbar5Props {
 
 const Navbar = ({ className,session }: Navbar5Props) => {
    
-  console.log(session);
-
+ 
   return (
     <section className={cn("py-4", className)}>
       <div className="container">
         <nav className="flex items-center justify-between">
           <Link href="/">
             <span className="text-lg font-semibold tracking-tighter">
-              FoodyVerse
+              FoodyVerse+{session?.user?.email}
             </span>
           </Link>
           <NavigationMenu className="hidden lg:block">
@@ -80,10 +77,9 @@ const Navbar = ({ className,session }: Navbar5Props) => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            <ProfileDrop session={session}></ProfileDrop>
             <ModeToggle></ModeToggle>
             {session ? (
-              ""
+             <ProfileDrop session={session}></ProfileDrop>
             ) : (
               <>
                 <Link href="/login">
