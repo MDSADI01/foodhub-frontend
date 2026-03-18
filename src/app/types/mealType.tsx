@@ -9,4 +9,7 @@ export interface MealType {
     categoryId: string;
     createdAt: string; 
     updatedAt: string; 
+    provider:{
+      restaurantName: string;
+    }
   }

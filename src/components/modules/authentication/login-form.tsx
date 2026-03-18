@@ -66,8 +66,9 @@ export function LoginForm({
           return toast.error(error.message, { id: toastId });
         }
 
-        router.refresh();
+        
         router.push("/");
+        router.refresh();
       } catch (err) {
         toast.error("Something went wrong", { id: toastId });
       }

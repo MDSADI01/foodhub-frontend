@@ -1,16 +1,21 @@
 import { mealService } from "@/app/services/meal.service";
+import { AddCart } from "@/components/ui/add-to-cart";
 
-import React from "react";
+
+
+
+
 
 const MealPortal = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const { data } = await mealService.getMealsById(id);
 
-  const singleMeal = data?.data;
-  console.log(singleMeal);
+  const mealDetails = data?.data;
+  console.log(mealDetails);
 
-  const { name, price, imageUrl, description, provider } = singleMeal;
+  const { name, price, imageUrl, description, provider } = mealDetails;
   const { restaurantName } = provider;
+ 
 
   return (
     <div>
@@ -26,6 +31,10 @@ const MealPortal = async ({ params }: { params: Promise<{ id: string }> }) => {
             {description}
           </div>
           <div>{restaurantName}</div>
+          <div>
+            <AddCart mealDetails={mealDetails}></AddCart>
+            
+          </div>
         </div>
       </div>
     </div>
