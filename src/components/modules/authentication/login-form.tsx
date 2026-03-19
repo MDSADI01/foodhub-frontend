@@ -17,21 +17,15 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import z from "zod";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const formSchema = z.object({
   email: z.string().min(6, "Email is required"),
@@ -43,6 +37,9 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const redirect = searchParams.get("redirect") || "/";
 
   const form = useForm({
     defaultValues: {
@@ -66,8 +63,7 @@ export function LoginForm({
           return toast.error(error.message, { id: toastId });
         }
 
-        
-        router.push("/");
+        router.push(redirect);
         router.refresh();
       } catch (err) {
         toast.error("Something went wrong", { id: toastId });
@@ -149,6 +145,12 @@ export function LoginForm({
             </Button>
           </CardFooter>
         </form>
+        <div className="flex justify-center items-center font-bold">
+          Are you logged in ?
+          <span className="ml-2 text-green-800">
+            <Link href="/register">Register</Link>
+          </span>
+        </div>
       </Card>
     </div>
   );

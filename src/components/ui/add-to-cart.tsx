@@ -43,7 +43,7 @@ export function AddCart({ mealDetails }: AddCartProps) {
           <SheetDescription>Add to cart your desired meal</SheetDescription>
         </SheetHeader>
         <SheetFooter>
-          <CartButton></CartButton>
+          <CartButton mealDetails={mealDetails}></CartButton>
         </SheetFooter>
       </SheetContent>
     </Sheet>

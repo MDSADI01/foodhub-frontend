@@ -6,15 +6,15 @@ export const customerRoutes =
         items: [
           {
             title: "Manage Profile",
-            url: "#",
+            url: "/profile",
           },
           {
             title: "Track Order Status",
-            url: "#",
+            url: "/orderStatus",
           },
           {
             title: "My reviews",
-            url: "#",
+            url: "/reviews",
           },
           {
             title: "Go to Home",

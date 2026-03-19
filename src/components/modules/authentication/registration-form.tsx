@@ -31,6 +31,8 @@ import z from "zod";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { error } from "console";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Link } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(6, "Name is required"),
@@ -42,6 +44,11 @@ const formSchema = z.object({
 export function RegistrationForm({
   ...props
 }: React.ComponentProps<typeof Card>) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const redirect = searchParams.get("redirect") || "/";
+
   const form = useForm({
     defaultValues: {
       name: "",
@@ -53,20 +60,19 @@ export function RegistrationForm({
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      try{
-        const {data, error} = await authClient.signUp.email(value)
-        console.log(data,error);
-          const toastId =  toast.loading("Creating User")
-          if(error){
-            toast.error(error.message, {id: toastId})
-            return
-          }
-            toast.success("User Created Successfully")
-
-
-      }
-      catch(err){
-         toast.error("Something went wrong") 
+      try {
+        const { data, error } = await authClient.signUp.email(value);
+        console.log(data, error);
+        const toastId = toast.loading("Creating User");
+        if (error) {
+          toast.error(error.message, { id: toastId });
+          return;
+        }
+        toast.success("User Created Successfully");
+        router.push(redirect);
+        router.refresh();
+      } catch (err) {
+        toast.error("Something went wrong");
       }
     },
   });
@@ -103,7 +109,9 @@ export function RegistrationForm({
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                     ></Input>
-                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
                   </Field>
                 );
               }}
@@ -124,7 +132,9 @@ export function RegistrationForm({
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                     ></Input>
-                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
                   </Field>
                 );
               }}
@@ -145,7 +155,9 @@ export function RegistrationForm({
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                     ></Input>
-                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
                   </Field>
                 );
               }}
@@ -175,7 +187,9 @@ export function RegistrationForm({
                         <SelectItem value="PROVIDER">Provider</SelectItem>
                       </SelectContent>
                     </Select>
-                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
                   </Field>
                 );
               }}
@@ -188,6 +202,12 @@ export function RegistrationForm({
           </Button>
         </CardFooter>
       </form>
+      <div className="flex justify-center items-center font-bold">
+        Are you logged in ?{" "}
+        <span className="ml-2 text-green-800">
+          <Link href="/register">Register</Link>
+        </span>
+      </div>
     </Card>
   );
 }

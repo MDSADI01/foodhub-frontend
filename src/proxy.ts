@@ -6,27 +6,32 @@ export async function proxy(request: NextRequest) {
 
     const pathName = request.nextUrl.pathname;
 
-  let isAuthenticated = false;
-  let isAdmin = false;
+ 
 
   const { data } = await userService.getSession();
 
   if (!data) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url));
   }
 
   const userRole = data.user.role;
 
   if (pathName === "/adminProfile" && userRole !== Roles.admin) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url));
   }
 
   if (pathName === "/providerProfile" && userRole !== Roles.provider) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url));
   }
 
   if (pathName === "/customerProfile" && userRole !== Roles.customer) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url));
+  }
+
+  if (pathName.startsWith("/meals/") && pathName.endsWith("/checkout")) {
+    if (userRole !== Roles.customer) {
+      return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url));
+    }
   }
 
  
@@ -40,6 +45,7 @@ export const config = {
     "/providerProfile",
     "/providerProfile/:path*",
     "/adminProfile",
-    "/adminProfile/:path*"
+    "/adminProfile/:path*",
+    "/meals/:id/checkout"
 ],
 };

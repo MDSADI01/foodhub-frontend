@@ -4,7 +4,6 @@ import MealCard from "@/components/ui/mealCard";
 
 const Meal = async () => {
   const { data } = await mealService.getMeals();
-  console.log(data);
 
   return (
     <div>
@@ -12,7 +11,7 @@ const Meal = async () => {
         {data?.data?.map((meal: MealType) => {
           return <MealCard key={meal.id} meal={meal}></MealCard>;
         })}
-        Hello
+    
       </div>
     </div>
   );

@@ -20,7 +20,6 @@ export const orderService = {
         });
   
         const data = await res.json();
-        console.log(data);
   
         if (!res.ok) {
           return { data: null, error: data.error || { message: "Failed to create order" } };
