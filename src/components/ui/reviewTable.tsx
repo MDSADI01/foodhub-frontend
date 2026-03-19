@@ -31,11 +31,11 @@ export interface CustomerReviewTableProps {
 const API_URL = env.NEXT_PUBLIC_API_URL;
 
 export function CustomerReviewTable({ myReviews }: CustomerReviewTableProps) {
-  // ✅ state to update UI after delete
+
   const [reviews, setReviews] = useState<CustomerReview[]>(myReviews);
 
   const handleDeleteReview = async (reviewId: string) => {
-    // ✅ SweetAlert confirmation
+   
     const result = await Swal.fire({
       title: "Are you sure?",
       text: "This review will be deleted!",
@@ -60,8 +60,6 @@ export function CustomerReviewTable({ myReviews }: CustomerReviewTableProps) {
         Swal.fire("Error!", data?.error?.message || "Delete failed", "error");
         return;
       }
-
-      // ✅ update UI instantly
       setReviews((prev) => prev.filter((r) => r.id !== reviewId));
 
       Swal.fire("Deleted!", "Review has been deleted.", "success");
