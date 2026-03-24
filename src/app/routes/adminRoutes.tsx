@@ -1,19 +1,23 @@
-const adminRoutes = [
+export const adminRoutes = [
       {
         title: "Admin Dashboard",
         url: "#",
         items: [
           {
+            title: "Admin profile",
+            url: "/admin",
+          },
+          {
             title: "Get All Users",
-            url: "#",
+            url: "/admin/users",
           },
           {
             title: "View All Orders",
-            url: "#",
+            url: "/admin/orders",
           },
           {
             title: "Manage Categories",
-            url: "#",
+            url: "/admin/categories",
           },
           {
             title: "Go to Home",

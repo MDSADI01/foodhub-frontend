@@ -16,7 +16,7 @@ export async function proxy(request: NextRequest) {
 
   const userRole = data.user.role;
 
-  if (pathName === "/adminProfile" && userRole !== Roles.admin) {
+  if (pathName === "/admin" && userRole !== Roles.admin) {
     return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url));
   }
 
@@ -44,8 +44,8 @@ export const config = {
     "/customerProfile/:path*",
     "/providerProfile",
     "/providerProfile/:path*",
-    "/adminProfile",
-    "/adminProfile/:path*",
+    "/admin",
+    "/admin/:path*",
     "/meals/:id/checkout"
 ],
 };

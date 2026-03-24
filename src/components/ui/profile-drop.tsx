@@ -29,7 +29,7 @@ export function ProfileDrop({ session }: sessionType) {
     console.log(session);
 
     const roleRoutes: any = {
-      ADMIN: "/adminProfile",
+      ADMIN: "/admin",
       CUSTOMER: "/profile",
       PROVIDER: "/providerProfile",
     };

@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { adminRoutes } from "@/app/routes/adminRoutes";
 
 // This is sample data.
 
