@@ -3,7 +3,7 @@ import React from 'react'
 
 const ViewAllOrders = () => {
   return (
-    <div>ViewAllOrders
+    <div>
       <AllOrderTable></AllOrderTable>
     </div>
   )

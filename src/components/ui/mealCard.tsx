@@ -36,7 +36,6 @@ const MealCard = ({meal}: MealCardProps) => {
     <CardHeader>
       <CardTitle>{name}</CardTitle>
       <CardDescription>
-        A luxurious 3-bedroom house with a modern design.
       </CardDescription>
     </CardHeader>
     <CardContent className="p-0">

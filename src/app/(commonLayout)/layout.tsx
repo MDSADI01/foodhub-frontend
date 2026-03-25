@@ -1,21 +1,18 @@
-import { Navbar } from '@/components/layout/navbar'
-import React from 'react'
-import { userService } from '../services/user.service'
-import { Footer } from '@/components/layout/footer';
+import { Navbar } from "@/components/layout/navbar";
+import React from "react";
+import { userService } from "../services/user.service";
+import { Footer } from "@/components/layout/footer";
 
-const CommonLayout = async ({children}:{children:React.ReactNode}) => {
-
-  const {data:session} = await userService.getSession();
+const CommonLayout = async ({ children }: { children: React.ReactNode }) => {
+  const { data: session } = await userService.getSession();
 
   return (
-    <div>
-        <div className='mx-5'>
-        <Navbar session={session}></Navbar>
-        {children}
-        <Footer></Footer>
-        </div>
+    <div className="mx-5">
+      <Navbar session={session}></Navbar>
+      {children}
+      <Footer></Footer>
     </div>
-  )
-}
+  );
+};
 
-export default CommonLayout
+export default CommonLayout;

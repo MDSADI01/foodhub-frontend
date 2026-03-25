@@ -28,5 +28,54 @@ export const adminService={
         console.log(err)
         return {data: null, error: {message: "Something is wrong"}}
        }
-    }
+    },
+    getAllCategories: async function(){
+        try{
+         const cookieStore = await cookies()
+ 
+         const res = await fetch(`${API_URL}/category`,{
+             headers:{
+                 Cookie: cookieStore.toString(),
+             },
+             cache: "no-store"
+         });
+ 
+         const data = await res.json();
+         if (!res.ok) {
+             return { data: null, error: data.error || { message: "Failed to retrieve category" } };
+           }
+     
+           return { data, error: null };
+        }
+        catch(err){
+         console.log(err)
+         return {data: null, error: {message: "Something is wrong"}}
+        }
+     },
+     createCategories: async function(payload:{
+        name:string,
+        description:string
+     }){
+        try{
+            const cookieStore = await cookies();
+         const res = await fetch(`${API_URL}/category`,{
+            method: "POST",
+            headers: { "Content-Type": "application/json", Cookie: cookieStore.toString()},
+            body: JSON.stringify(payload),
+        
+         });
+ 
+         const data = await res.json();
+         if (!res.ok) {
+             return { data: null, error: data.error || { message: "Failed to create category" } };
+           }
+     
+           return { data, error: null };
+        }
+        catch(err){
+         console.log(err)
+         return {data: null, error: {message: "Something is wrong"}}
+        }
+     }
+
 }

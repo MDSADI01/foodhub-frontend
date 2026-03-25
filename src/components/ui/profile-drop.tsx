@@ -31,7 +31,7 @@ export function ProfileDrop({ session }: sessionType) {
     const roleRoutes: any = {
       ADMIN: "/admin",
       CUSTOMER: "/profile",
-      PROVIDER: "/providerProfile",
+      PROVIDER: "/provider/dashboard",
     };
 
     router.push(roleRoutes[role] || "/");

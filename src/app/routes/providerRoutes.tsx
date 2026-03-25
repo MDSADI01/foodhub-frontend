@@ -5,16 +5,20 @@ export const providerRoutes =
         url: "#",
         items: [
           {
+            title: "Dashboard",
+            url: "/provider/dashboard",
+          },
+          {
             title: "Update Profile",
-            url: "#",
+            url: "/provider/profile",
           },
           {
             title: "Customize Menu",
-            url: "#",
+            url: "/provider/menu",
           },
           {
             title: "View Orders",
-            url: "#",
+            url: "/provider/orders",
           },
           {
             title: "Go to Home",
