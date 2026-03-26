@@ -30,9 +30,9 @@ import { useForm } from "@tanstack/react-form";
 import z from "zod";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
-import { error } from "console";
+
 import { useRouter, useSearchParams } from "next/navigation";
-import { Link } from "lucide-react";
+import Link from "next/link";
 
 const formSchema = z.object({
   name: z.string().min(6, "Name is required"),
@@ -60,19 +60,37 @@ export function RegistrationForm({
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
+      const toastId = toast.loading("Creating User");
       try {
-        const { data, error } = await authClient.signUp.email(value);
-        console.log(data, error);
-        const toastId = toast.loading("Creating User");
-        if (error) {
-          toast.error(error.message, { id: toastId });
+        const { data: signUpData, error: signUpError } =
+          await authClient.signUp.email(value);
+        if (signUpError) {
+          toast.error(signUpError.message, { id: toastId });
           return;
         }
-        toast.success("User Created Successfully");
-        router.push(redirect);
-        router.refresh();
-      } catch (err) {
-        toast.error("Something went wrong");
+      
+
+        if (signUpData) {
+          const { data: loginData, error: loginError } =
+            await authClient.signIn.email({
+              email: value.email,
+              password: value.password,
+            });
+
+          if (loginError) {
+            toast.error("Login failed after signup: " + loginError.message, {
+              id: toastId,
+            });
+            return;
+          }
+
+          toast.success("User created & logged in successfully!", {
+            id: toastId,
+          });
+          router.push(redirect);
+        }
+      } catch (err: any) {
+        toast.error(err?.message || "Something went wrong", { id: toastId });
       }
     },
   });
@@ -203,9 +221,9 @@ export function RegistrationForm({
         </CardFooter>
       </form>
       <div className="flex justify-center items-center font-bold">
-        Are you logged in ?{" "}
+        Are you already registered ?{" "}
         <span className="ml-2 text-green-800">
-          <Link href="/register">Register</Link>
+          <Link href="/login">Login</Link>
         </span>
       </div>
     </Card>

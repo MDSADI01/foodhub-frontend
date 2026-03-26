@@ -26,7 +26,7 @@ type CategoryTableProps = {
 
 const ManageCategory = ({ categories }: CategoryTableProps) => {
   const [category, setCategory] = useState<Category[]>(categories);
-  console.log(category);
+  category;
 
   const handleDeleteCategory = async (id: string) => {
     const result = await Swal.fire({
@@ -44,7 +44,7 @@ const ManageCategory = ({ categories }: CategoryTableProps) => {
     try {
       const res = await fetch(`${API_URL}/category/${id}`, {
         method: "DELETE",
-        credentials: "include"
+        credentials: "include",
       });
 
       const data = await res.json();
@@ -90,8 +90,8 @@ const ManageCategory = ({ categories }: CategoryTableProps) => {
               <TableRow key={cat.id}>
                 <TableCell className="font-medium">{cat.name}</TableCell>
                 <TableCell>
-                {cat.description.split(" ").slice(0, 10).join(" ")}
-                {cat.description.split(" ").length > 10 ? "..." : ""}
+                  {cat.description.split(" ").slice(0, 10).join(" ")}
+                  {cat.description.split(" ").length > 10 ? "..." : ""}
                 </TableCell>
                 <TableCell>
                   <button

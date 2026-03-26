@@ -1,5 +1,3 @@
-"use client";
-
 import { MenuIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -25,21 +23,20 @@ import { ProfileDrop } from "../ui/profile-drop";
 
 interface Navbar5Props {
   className?: string;
-  session:any
+  session: any;
 }
 
-const Navbar = ({ className,session }: Navbar5Props) => {
-   
- 
+const Navbar = ({ className, session }: Navbar5Props) => {
   return (
     <section className={cn("py-4", className)}>
       <div className="container">
         <nav className="flex items-center justify-between">
           <Link href="/">
             <span className="text-lg font-semibold tracking-tighter">
-              FoodyVerse+{session?.user?.email}
+              FoodyVerse{session?.user?.email ? `+${session.user.email}` : ""}
             </span>
           </Link>
+
           <NavigationMenu className="hidden lg:block">
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -66,20 +63,13 @@ const Navbar = ({ className,session }: Navbar5Props) => {
                   About
                 </NavigationMenuLink>
               </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="/contact"
-                  className={navigationMenuTriggerStyle()}
-                >
-                  Contact
-                </NavigationMenuLink>
-              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
+
           <div className="hidden items-center gap-4 lg:flex">
-            <ModeToggle></ModeToggle>
+            <ModeToggle />
             {session ? (
-             <ProfileDrop session={session}></ProfileDrop>
+              <ProfileDrop session={session} />
             ) : (
               <>
                 <Link href="/login">
@@ -91,6 +81,7 @@ const Navbar = ({ className,session }: Navbar5Props) => {
               </>
             )}
           </div>
+
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
               <Button variant="outline" size="icon">
@@ -110,32 +101,32 @@ const Navbar = ({ className,session }: Navbar5Props) => {
                   </a>
                 </SheetTitle>
               </SheetHeader>
+
               <div className="flex flex-col p-4">
                 <div className="flex flex-col gap-6">
-                  <a href="#" className="font-medium">
-                    Templates
+                  <a href="/" className="font-medium">
+                    Home
                   </a>
-                  <a href="#" className="font-medium">
-                    Blog
+                  <a href="/meals" className="font-medium">
+                    Meals
                   </a>
-                  <a href="#" className="font-medium">
-                    Pricing
+                  <a href="about" className="font-medium">
+                    About
                   </a>
                 </div>
+
                 <div className="mt-6 flex flex-col gap-4">
-                  <ProfileDrop session={session}></ProfileDrop>
-                  <ModeToggle></ModeToggle>
-                  {session ? (
-                        ""
-                  ) : (
+                  {<ProfileDrop session={session} />}
+                  <ModeToggle />
+                  {!session && (
                     <>
-                    <Link href="/login">
-                      <Button variant="outline">Sign in</Button>
-                    </Link>
-                    <Link href="/register">
-                      <Button>Sign up</Button>
-                    </Link>
-                  </>
+                      <Link href="/login">
+                        <Button variant="outline">Sign in</Button>
+                      </Link>
+                      <Link href="/register">
+                        <Button>Sign up</Button>
+                      </Link>
+                    </>
                   )}
                 </div>
               </div>

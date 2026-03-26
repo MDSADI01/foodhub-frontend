@@ -19,14 +19,13 @@ import { sessionType } from "@/app/types/session";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
-
 export function ProfileDrop({ session }: sessionType) {
   const router = useRouter();
 
   const handleProfile = () => {
     const role = session?.user?.role;
 
-    console.log(session);
+    session;
 
     const roleRoutes: any = {
       ADMIN: "/admin",
@@ -37,16 +36,16 @@ export function ProfileDrop({ session }: sessionType) {
     router.push(roleRoutes[role] || "/");
   };
 
-  const handleLogOut = async() =>{
+  const handleLogOut = async () => {
     await authClient.signOut({
-      fetchOptions:{
-        onSuccess: ()=>{
+      fetchOptions: {
+        onSuccess: () => {
           router.push("/login");
-        }
-      }
-    })
+        },
+      },
+    });
     router.refresh();
-  }
+  };
 
   return (
     <DropdownMenu>

@@ -1,51 +1,56 @@
+// middleware.ts
 import { NextRequest, NextResponse } from "next/server";
 import { userService } from "./app/services/user.service";
 import { Roles } from "./constants/role";
 
 export async function proxy(request: NextRequest) {
-
-    const pathName = request.nextUrl.pathname;
-
- 
+  const pathName = request.nextUrl.pathname;
 
   const { data } = await userService.getSession();
 
   if (!data) {
-    return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url));
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url)
+    );
   }
 
   const userRole = data.user.role;
 
-  if (pathName === "/admin" && userRole !== Roles.admin) {
-    return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url));
+  if (pathName.startsWith("/admin") && userRole !== Roles.admin) {
+    return NextResponse.redirect(new URL(`/unauthorized`, request.url));
   }
 
-  if (pathName === "/providerProfile" && userRole !== Roles.provider) {
-    return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url));
+  // Provider profile page
+  if (pathName.startsWith("/provider") && userRole !== Roles.provider) {
+    return NextResponse.redirect(new URL(`/unauthorized`, request.url));
   }
 
-  if (pathName === "/customerProfile" && userRole !== Roles.customer) {
-    return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url));
+  // Customer profile page
+  if (
+    (pathName.startsWith("/profile") ||
+      pathName.startsWith("/orders") ||
+      pathName.startsWith("/reviews") ||
+      (pathName.startsWith("/meals/") && pathName.endsWith("/checkout"))) &&
+    userRole !== Roles.customer
+  ) {
+    return NextResponse.redirect(new URL(`/unauthorized`, request.url));
   }
 
-  if (pathName.startsWith("/meals/") && pathName.endsWith("/checkout")) {
-    if (userRole !== Roles.customer) {
-      return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathName)}`, request.url));
-    }
-  }
-
- 
+  // ✅ Authorized → continue
   return NextResponse.next();
 }
 
-
+// Middleware paths
 export const config = {
-  matcher: ["/customerProfile",
-    "/customerProfile/:path*",
-    "/providerProfile",
-    "/providerProfile/:path*",
+  matcher: [
     "/admin",
     "/admin/:path*",
-    "/meals/:id/checkout"
-],
+    "/provider",
+    "/provider/:path*",
+    "/profile",
+    "/profile/:path*",
+    "/orders",
+    "/reviews",
+    "/meals/:id/checkout",
+  ],
 };

@@ -1,21 +1,18 @@
-import { reviewService } from '@/app/services/review.service'
-import { userService } from '@/app/services/user.service'
-import { CustomerReviewTable } from '@/components/ui/reviewTable'
-import React from 'react'
+import { reviewService } from "@/app/services/review.service";
+import { userService } from "@/app/services/user.service";
+import { CustomerReviewTable } from "@/components/ui/reviewTable";
+import React from "react";
 
 const ReviewPage = async () => {
-  
-    const getReview = await reviewService.getReview();
-    const myReviews = getReview?.data?.data;
-    console.log(myReviews);
-
-    
+  const getReview = await reviewService.getReview();
+  const myReviews = getReview?.data?.data;
+  myReviews;
 
   return (
     <div>
-        <CustomerReviewTable myReviews={myReviews}></CustomerReviewTable>
+      <CustomerReviewTable myReviews={myReviews}></CustomerReviewTable>
     </div>
-  )
-}
+  );
+};
 
-export default ReviewPage
+export default ReviewPage;

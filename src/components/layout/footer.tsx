@@ -72,15 +72,15 @@ const defaultLegalLinks = [
 
 const Footer = ({
   logo = {
-    url: "https://www.shadcnblocks.com",
+    url: "https://i.postimg.cc/zBCbTRPZ/restaurant-logo-on-letter-f-concept-with-chef-hat-spoon-and-fork-for-restaurant-logo-free-vector.jpg",
     src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
     alt: "logo",
-    title: "Shadcnblocks.com",
+    title: "FoodyVerse.com",
   },
   sections = defaultSections,
-  description = "A collection of components for your startup business or side project.",
+  description = "A collection of foods for your hunger.",
   socialLinks = defaultSocialLinks,
-  copyright = "© 2024 Shadcnblocks.com. All rights reserved.",
+  copyright = "© 2024 FoodyVerse.com. All rights reserved.",
   legalLinks = defaultLegalLinks,
   className,
 }: Footer7Props) => {
@@ -93,7 +93,7 @@ const Footer = ({
             <div className="flex items-center gap-2 lg:justify-start">
               <a href={logo.url}>
                 <img
-                  src={logo.src}
+                  src="https://i.postimg.cc/zBCbTRPZ/restaurant-logo-on-letter-f-concept-with-chef-hat-spoon-and-fork-for-restaurant-logo-free-vector.jpg"
                   alt={logo.alt}
                   title={logo.title}
                   className="h-8"

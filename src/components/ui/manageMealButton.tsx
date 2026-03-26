@@ -33,20 +33,19 @@ const ManageMealButton = async () => {
     "use server";
 
     const payload = {
-        name: formData.get("name") as string,
-        description: formData.get("description") as string,
-        price: Number(formData.get("price")),
-        imageUrl: formData.get("imageUrl") as string,
-        category: formData.get("category") as string,
-      };
-      console.log(payload);
+      name: formData.get("name") as string,
+      description: formData.get("description") as string,
+      price: Number(formData.get("price")),
+      imageUrl: formData.get("imageUrl") as string,
+      category: formData.get("category") as string,
+    };
+    payload;
 
-    const res = await providerService.createMeal(payload)
-    console.log(res);
+    const res = await providerService.createMeal(payload);
 
-if(res?.data){
-    redirect("/provider/menu")
-}
+    if (res?.data) {
+      redirect("/provider/menu");
+    }
   };
 
   return (
@@ -68,11 +67,16 @@ if(res?.data){
                   <CardTitle>Create Meal</CardTitle>
                 </CardHeader>
                 <CardContent className="flex-1">
-                  <form className="flex flex-col gap-4" id="create-meal" action={createMeal}>
+                  <form
+                    className="flex flex-col gap-4"
+                    id="create-meal"
+                    action={createMeal}
+                  >
                     <FieldGroup>
                       <Field>
                         <FieldLabel>Meal Name</FieldLabel>
-                        <Input required
+                        <Input
+                          required
                           type="text"
                           placeholder="Meal Name"
                           name="name"
@@ -89,12 +93,18 @@ if(res?.data){
 
                       <Field>
                         <FieldLabel>Price</FieldLabel>
-                        <Input required type="number" placeholder="Price" name="price" />
+                        <Input
+                          required
+                          type="number"
+                          placeholder="Price"
+                          name="price"
+                        />
                       </Field>
 
                       <Field>
                         <FieldLabel>Image URL</FieldLabel>
-                        <Input required
+                        <Input
+                          required
                           type="text"
                           placeholder="Image URL"
                           name="imageUrl"
@@ -120,15 +130,13 @@ if(res?.data){
                   </form>
                 </CardContent>
 
-               
-                  <Button
-                    form="create-meal"
-                    type="submit"
-                    className="w-3/4 flex mx-auto"
-                  >
-                    Submit
-                  </Button>
-            
+                <Button
+                  form="create-meal"
+                  type="submit"
+                  className="w-3/4 flex mx-auto"
+                >
+                  Submit
+                </Button>
               </Card>
             </div>
           </div>

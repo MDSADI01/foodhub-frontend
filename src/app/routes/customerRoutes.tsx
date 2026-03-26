@@ -10,7 +10,7 @@ export const customerRoutes =
           },
           {
             title: "Track Order Status",
-            url: "/orderStatus",
+            url: "/orders",
           },
           {
             title: "My reviews",

@@ -30,7 +30,7 @@ export default function CheckoutPage() {
         quantity: item.quantity,
       })),
     };
-    console.log(payload);
+    payload;
 
     const res = await orderService.createOrder(payload);
     const toastId = toast.loading("Order is in process");

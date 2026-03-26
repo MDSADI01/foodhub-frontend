@@ -1,9 +1,9 @@
-import { cookies } from 'next/headers';
+
 import { env } from "@/env";
 
 
 
-const API_URL= env.NEXT_PUBLIC_API_URL;;
+const API_URL= env.NEXT_PUBLIC_API_URL;
 
 
 export const orderService = {
@@ -44,7 +44,6 @@ export const orderService = {
       }
     },
   
-    // Get order by ID
     getOrderById: async function (customerId: string, orderId: string) {
       try {
         const res = await fetch(`${API_URL}/orders/${orderId}?customerId=${customerId}`, { cache: "no-store" });
@@ -55,31 +54,31 @@ export const orderService = {
         return { data: null, error: { message: err.message || "Something went wrong" } };
       }
     },
-    getAllOrders: async function () {
-      try {
-        const cookieStore = await cookies();
-        const res = await fetch(`${API_URL}/orders/all`,
-          {
-            headers:{
-                Cookie:cookieStore.toString()
-            }
-          },
-         );
-        const data = await res.json();
+    // getAllOrders: async function () {
+    //   try {
+    //     const cookieStore = await cookies();
+    //     const res = await fetch(`${API_URL}/orders/all`,
+    //       {
+    //         headers:{
+    //             Cookie:cookieStore.toString()
+    //         }
+    //       },
+    //      );
+    //     const data = await res.json();
 
-        if (!res.ok) {
-          return {
-            data: null,
-            error: data.error || { message: "Failed to load orders" },
-          };
-        }
+    //     if (!res.ok) {
+    //       return {
+    //         data: null,
+    //         error: data.error || { message: "Failed to load orders" },
+    //       };
+    //     }
   
-        return { data, error: null }
-      } 
-       catch (err: any) {
-        return { data: null, error: { message: err.message || "Something went wrong" } };
-      }
-    }
+    //     return { data, error: null }
+    //   } 
+    //    catch (err: any) {
+    //     return { data: null, error: { message: err.message || "Something went wrong" } };
+    //   }
+    // }
   
   
   }

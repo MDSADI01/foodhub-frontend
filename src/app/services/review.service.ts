@@ -22,7 +22,7 @@ export const reviewService = {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      console.log(data);
+      data;
 
       if (!res.ok) {
         return {
@@ -66,7 +66,7 @@ export const reviewService = {
       };
     }
   },
-  getAllReviewByMealId: async function (mealId:string) {
+  getAllReviewByMealId: async function (mealId: string) {
     try {
       const cookieStore = await cookies();
 
@@ -76,7 +76,7 @@ export const reviewService = {
         },
       });
       const data = await res.json();
-      console.log(data);
+      data;
 
       if (!res.ok) {
         return {
@@ -93,5 +93,4 @@ export const reviewService = {
       };
     }
   },
-
 };

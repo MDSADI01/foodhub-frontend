@@ -5,7 +5,7 @@ const AdminProfile = async () => {
   const { data } = await userService.getSession();
 
   const adminData = data?.user;
-  console.log(adminData);
+  
 
   return <div>
     <div className="font-bold">

@@ -42,7 +42,7 @@ const API_URL = env.NEXT_PUBLIC_API_URL;
 
 export function ProviderMealTable({ providerMeal }: ProviderMealTableProps) {
   const [meals, setMeals] = useState<Meal[]>(providerMeal || []);
-  console.log(meals);
+  meals;
 
   const handleDeleteMeal = async (mealId: string) => {
     const result = await Swal.fire({
@@ -97,7 +97,7 @@ export function ProviderMealTable({ providerMeal }: ProviderMealTableProps) {
               <TableCell className="font-medium">{meal.name}</TableCell>
               <TableCell>{meal.category.name}</TableCell>
               <TableCell>
-               <UpdateMealButton meal={meal}></UpdateMealButton>
+                <UpdateMealButton meal={meal}></UpdateMealButton>
               </TableCell>
               <TableCell>
                 <button

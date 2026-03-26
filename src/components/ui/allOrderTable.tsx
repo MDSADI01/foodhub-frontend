@@ -1,4 +1,4 @@
-import { orderService } from "@/app/services/order.service";
+import { orderServerService } from "@/app/services/getAllOrderServiceServer";
 import { MealType } from "@/app/types/mealType";
 import {
   Table,
@@ -28,10 +28,9 @@ export interface CustomerReviewTableProps {
 const API_URL = env.NEXT_PUBLIC_API_URL;
 
 export async function AllOrderTable() {
- 
-    const allOrders = await orderService.getAllOrders();
-    const orders = allOrders?.data?.data;
-    console.log(orders);
+  const allOrders = await orderServerService.getAllOrders();
+  const orders = allOrders?.data?.data;
+  orders;
 
   return (
     <Table>
@@ -50,12 +49,12 @@ export async function AllOrderTable() {
         {orders.length > 0 ? (
           orders.map((order: any) => (
             <TableRow key={order.id}>
-              <TableCell className="font-medium">{order.customer.name}</TableCell>
+              <TableCell className="font-medium">
+                {order.customer.name}
+              </TableCell>
               <TableCell>{order.orderItems[0].meal.name}</TableCell>
               <TableCell>{order.status}</TableCell>
-              <TableCell>
-               {order.id}
-              </TableCell>
+              <TableCell>{order.id}</TableCell>
             </TableRow>
           ))
         ) : (

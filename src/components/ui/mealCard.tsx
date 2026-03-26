@@ -39,7 +39,7 @@ const MealCard = ({meal}: MealCardProps) => {
       </CardDescription>
     </CardHeader>
     <CardContent className="p-0">
-      {/** biome-ignore lint/performance/noImgElement: "Kibo UI is framework agnostic" */}
+   
       <img
         alt=""
         className="w-full h-50 object-cover rounded-xl"

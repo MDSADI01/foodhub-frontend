@@ -50,32 +50,25 @@ export function LoginForm({
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const toastId =  toast.loading("Logging User")
-      try{
-        
-        const {data, error} = await authClient.signIn.email(value)
-        console.log(data,error);
+      const toastId = toast.loading("Logging User");
+      try {
+        const { data, error } = await authClient.signIn.email(value)(
+          data,
+          error
+        );
 
         if (data) {
-        
           toast.success("User logged in Successfully", { id: toastId });
         }
-          
-          if(error){
-           return toast.error(error.message, {id: toastId})
-            
-          }
-         
-           
 
-
-      }
-      catch(err){
-         toast.error("Something went wrong",{id:toastId}) 
+        if (error) {
+          return toast.error(error.message, { id: toastId });
+        }
+      } catch (err) {
+        toast.error("Something went wrong", { id: toastId });
       }
     },
   });
-
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -142,7 +135,11 @@ export function LoginForm({
             </FieldGroup>
           </CardContent>
           <CardFooter className="flex justify-center mt-5">
-            <Button className="w-full" type="submit" disabled={form.state.isSubmitting}>
+            <Button
+              className="w-full"
+              type="submit"
+              disabled={form.state.isSubmitting}
+            >
               Login to your Account
             </Button>
           </CardFooter>

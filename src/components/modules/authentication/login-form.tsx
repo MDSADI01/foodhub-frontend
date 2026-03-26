@@ -17,8 +17,6 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 
-
-
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import z from "zod";
@@ -53,7 +51,7 @@ export function LoginForm({
       const toastId = toast.loading("Logging User");
       try {
         const { data, error } = await authClient.signIn.email(value);
-        console.log(data, error);
+   
 
         if (data) {
           toast.success("User logged in Successfully", { id: toastId });
@@ -146,7 +144,7 @@ export function LoginForm({
           </CardFooter>
         </form>
         <div className="flex justify-center items-center font-bold">
-          Are you logged in ?
+          Didn't registered yet ?
           <span className="ml-2 text-green-800">
             <Link href="/register">Register</Link>
           </span>

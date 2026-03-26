@@ -37,9 +37,7 @@ export function ManageUsersStatusTable({
   usersList,
 }: ManageUsersStatusTableProps) {
   const [users, setUsers] = useState<Users[]>(usersList);
-  console.log(users);
-
-  
+  users;
 
   const handleToggle = async (id: string, currentStatus: boolean) => {
     const confirm = await Swal.fire({
@@ -60,18 +58,16 @@ export function ManageUsersStatusTable({
         headers: {
           "Content-Type": "application/json",
         },
-        credentials:"include",
+        credentials: "include",
         body: JSON.stringify({
           isActive: !currentStatus,
         }),
       });
 
       if (res.ok) {
-        setUsers(prev =>
-          prev.map(user =>
-            user.id === id
-              ? { ...user, isActive: !currentStatus }
-              : user
+        setUsers((prev) =>
+          prev.map((user) =>
+            user.id === id ? { ...user, isActive: !currentStatus } : user
           )
         );
 
@@ -80,7 +76,7 @@ export function ManageUsersStatusTable({
         throw new Error("Failed");
       }
     } catch (error) {
-        console.log(error);
+      error;
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -113,8 +109,9 @@ export function ManageUsersStatusTable({
               <TableCell>{user.role}</TableCell>
               <TableCell>
                 <button
-                className="outline p-3 rounded-xl bg-blue-500 font-bold text-white hover:bg-white hover:text-black transition duration-300 cursor-pointer"
-                onClick={() => handleToggle(user.id, user.isActive)}>
+                  className="outline p-3 rounded-xl bg-blue-500 font-bold text-white hover:bg-white hover:text-black transition duration-300 cursor-pointer"
+                  onClick={() => handleToggle(user.id, user.isActive)}
+                >
                   {user.isActive ? "Deactivate" : "Activate"}
                 </button>
               </TableCell>

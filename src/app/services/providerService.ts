@@ -23,7 +23,7 @@ export const providerService = {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      console.log(data);
+      data;
 
       if (!res.ok) {
         return {
@@ -40,86 +40,119 @@ export const providerService = {
       };
     }
   },
-   getProviderProfile: async function () {
-      try {
-        const cookieStore = await cookies();
-  
-        const res = await fetch(`${API_URL}/provider/profile`, {
-          headers: {
-            Cookie: cookieStore.toString(),
-          },
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          return {
-            data: null,
-            error: data.error || { message: "Failed to load provider profile" },
-          };
-        }
-  
-        return { data, error: null };
-      } catch (err: any) {
+  getProviderProfile: async function () {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/provider/profile`, {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+      const data = await res.json();
+      if (!res.ok) {
         return {
           data: null,
-          error: { message: err.message || "Something went wrong" },
+          error: data.error || { message: "Failed to load provider profile" },
         };
       }
-    },
-    createMeal: async function (payload: {
-            name: string,
-            description: string,
-            price: number,
-            imageUrl: string,
-            category: string,
-    }) {
-      try {
-        const cookieStore = await cookies();
-        const res = await fetch(`${API_URL}/provider/meals`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json",
-            Cookie: cookieStore.toString(),
-           },
-         
-          body: JSON.stringify(payload),
-        });
-  
-        const data = await res.json();
-      
-        if (!res.ok) {
-          return { data: null, error: data.error || { message: "Failed to create meal" } };
-        }
-  
-        return { data, error: null };
-      } catch (err: any) {
-        return { data: null, error: { message: err.message || "Something went wrong" } };
-      }
-    },
 
-    getMealsByProvider: async function () {
-        try {
-          const cookieStore = await cookies();
-    
-          const res = await fetch(`${API_URL}/provider/meals`, {
-            headers: {
-              Cookie: cookieStore.toString(),
-            },
-          });
-          const data = await res.json();
-          console.log(data);
-    
-          if (!res.ok) {
-            return {
-              data: null,
-              error: data.error || { message: "Failed to load meals" },
-            };
-          }
-    
-          return { data, error: null };
-        } catch (err: any) {
-          return {
-            data: null,
-            error: { message: err.message || "Something went wrong" },
-          };
-        }
-      },
+      return { data, error: null };
+    } catch (err: any) {
+      return {
+        data: null,
+        error: { message: err.message || "Something went wrong" },
+      };
+    }
+  },
+  createMeal: async function (payload: {
+    name: string;
+    description: string;
+    price: number;
+    imageUrl: string;
+    category: string;
+  }) {
+    try {
+      const cookieStore = await cookies();
+      const res = await fetch(`${API_URL}/provider/meals`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        return {
+          data: null,
+          error: data.error || { message: "Failed to create meal" },
+        };
+      }
+
+      return { data, error: null };
+    } catch (err: any) {
+      return {
+        data: null,
+        error: { message: err.message || "Something went wrong" },
+      };
+    }
+  },
+
+  getMealsByProvider: async function () {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/provider/meals`, {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        return {
+          data: null,
+          error: data.error || { message: "Failed to load meals" },
+        };
+      }
+
+      return { data, error: null };
+    } catch (err: any) {
+      return {
+        data: null,
+        error: { message: err.message || "Something went wrong" },
+      };
+    }
+  },
+  getOrdersByProvider: async function () {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/provider/orders`, {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+      const data = await res.json();
+      data;
+
+      if (!res.ok) {
+        return {
+          data: null,
+          error: data.error || { message: "Failed to load orders" },
+        };
+      }
+
+      return { data, error: null };
+    } catch (err: any) {
+      return {
+        data: null,
+        error: { message: err.message || "Something went wrong" },
+      };
+    }
+  },
 };

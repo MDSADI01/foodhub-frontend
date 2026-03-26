@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { env } from "@/env";
 
-
 const API_URL = env.NEXT_PUBLIC_API_URL;
 
 const ProviderProfile = () => {
@@ -31,11 +30,16 @@ const ProviderProfile = () => {
       address,
       phone,
       restaurantName,
-      description
+      description,
     };
-
-  const res = await providerService.createProviderProfile(profileData)
-  console.log(res);
+    const userData = {
+      image,
+      address,
+      phone,
+    };
+    const userRes = await customerService.updateProfile(userData);
+    userRes;
+    const res = await providerService.createProviderProfile(profileData);
   };
 
   return (
@@ -54,19 +58,25 @@ const ProviderProfile = () => {
 
               <Field>
                 <FieldLabel>Restaurant Name </FieldLabel>
-                <Input type="text" placeholder="Restaurant Name" name="restaurantName" required></Input>
+                <Input
+                  type="text"
+                  placeholder="Restaurant Name"
+                  name="restaurantName"
+                  required
+                ></Input>
               </Field>
 
-              
               <Field>
                 <FieldLabel>Address</FieldLabel>
                 <Input type="text" placeholder="Address" name="address"></Input>
               </Field>
 
-
               <Field>
                 <FieldLabel>Description</FieldLabel>
-                <Textarea  placeholder="Description" name="description"></Textarea>
+                <Textarea
+                  placeholder="Description"
+                  name="description"
+                ></Textarea>
               </Field>
 
               <Field>

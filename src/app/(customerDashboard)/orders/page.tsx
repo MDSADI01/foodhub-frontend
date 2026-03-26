@@ -12,19 +12,17 @@ import {
 } from "@/components/ui/table";
 
 const OrderStatus = async () => {
-
-  const { data } = await userService.getSession()
+  const { data } = await userService.getSession();
 
   const customerId = data?.user?.id;
 
   const orderStatusData = await customerService.getOrderStatus(customerId);
   const orders = orderStatusData?.data?.data || [];
-  console.log(orders);
-
+  orders;
 
   return (
     <div>
-     {orders?.length > 0 ? (
+      {orders?.length > 0 ? (
         <OrderStatusTable orders={orders} />
       ) : (
         <p>No orders found.</p>

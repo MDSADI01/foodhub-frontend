@@ -1,8 +1,16 @@
+import { providerService } from '@/app/services/providerService'
+import { ProviderOrderTable } from '@/components/ui/updateOrderStatus';
 import React from 'react'
 
-const ProviderOrderList = () => {
+const ProviderOrderList = async () => {
+
+ const providerOrders = await providerService.getOrdersByProvider();
+ const orders = providerOrders?.data?.data;
+
   return (
-    <div>ProviderOrderList</div>
+    <div>
+      <ProviderOrderTable orders={orders}></ProviderOrderTable>
+    </div>
   )
 }
 

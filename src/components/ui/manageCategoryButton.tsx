@@ -35,8 +35,8 @@ const ManageCategoryButton = () => {
       description,
     };
 
-   const res = await adminService.createCategories(categoryData);
-   console.log(res);
+    const res = await adminService.createCategories(categoryData);
+    res;
   };
 
   return (
