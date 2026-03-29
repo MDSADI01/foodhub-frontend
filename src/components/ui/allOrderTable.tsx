@@ -30,7 +30,7 @@ const API_URL = env.NEXT_PUBLIC_API_URL;
 export async function AllOrderTable() {
   const allOrders = await orderServerService.getAllOrders();
   const orders = allOrders?.data?.data || [];
-  orders;
+  console.log("Fetched orders:", orders);
 
   return (
     <Table>
@@ -50,17 +50,25 @@ export async function AllOrderTable() {
           orders.map((order: any) => (
             <TableRow key={order.id}>
               <TableCell className="font-medium">
-                {order.customer.name}
+                {order.customer?.name ?? "No name"}
               </TableCell>
-              <TableCell>{order.orderItems[0].meal.name}</TableCell>
-              <TableCell>{order.status}</TableCell>
+              <TableCell>
+                {order.orderItems && order.orderItems.length > 0
+                  ? order.orderItems
+                      .map(
+                        (item: any) => item.meal?.name ?? "No meal info"
+                      )
+                      .join(", ")
+                  : "No items"}
+              </TableCell>
+              <TableCell>{order.status ?? "No status"}</TableCell>
               <TableCell>{order.id}</TableCell>
             </TableRow>
           ))
         ) : (
           <TableRow>
             <TableCell colSpan={4} className="text-center">
-              No reviews yet
+              No orders
             </TableCell>
           </TableRow>
         )}

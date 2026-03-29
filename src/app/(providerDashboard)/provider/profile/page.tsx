@@ -38,7 +38,7 @@ const ProviderProfile = () => {
       phone,
     };
     const userRes = await customerService.updateProfile(userData);
-    userRes;
+
     const res = await providerService.createProviderProfile(profileData);
   };
 
