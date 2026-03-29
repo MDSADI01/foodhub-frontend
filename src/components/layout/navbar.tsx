@@ -33,7 +33,7 @@ const Navbar = ({ className, session }: Navbar5Props) => {
         <nav className="flex items-center justify-between">
           <Link href="/">
             <span className="text-lg font-semibold tracking-tighter">
-              FoodyVerse{session?.user?.email ? `+${session.user.email}` : ""}
+              FoodyVerse
             </span>
           </Link>
 

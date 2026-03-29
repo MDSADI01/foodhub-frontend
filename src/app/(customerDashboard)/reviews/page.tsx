@@ -5,7 +5,7 @@ import React from "react";
 
 const ReviewPage = async () => {
   const getReview = await reviewService.getReview();
-  const myReviews = getReview?.data?.data;
+  const myReviews = getReview?.data?.data || [];
   myReviews;
 
   return (

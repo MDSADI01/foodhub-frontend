@@ -88,6 +88,7 @@ export function RegistrationForm({
             id: toastId,
           });
           router.push(redirect);
+          router.refresh();
         }
       } catch (err: any) {
         toast.error(err?.message || "Something went wrong", { id: toastId });

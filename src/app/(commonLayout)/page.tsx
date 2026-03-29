@@ -6,7 +6,7 @@ import SocialMediaCards from "@/components/ui/socialMediaCard";
 
 export default async function Home() {
   const MealsPreview = await mealService.getMeals();
-  const meals = MealsPreview?.data?.data;
+  const meals = MealsPreview?.data?.data ;
   
   return (
     <div>

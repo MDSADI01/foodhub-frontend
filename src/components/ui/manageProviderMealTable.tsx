@@ -13,7 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { env } from "@/env";
-import Link from "next/link";
+
 import { UpdateMealButton } from "./updateMealButton";
 
 export type Category = {

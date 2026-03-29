@@ -14,13 +14,13 @@ export type Meal = {
 };
 
 type MealPreviewProps = {
-  meals: Meal[];
+  meals?: Meal[]; // make optional
 };
 
-export default function MealPreview({ meals }: MealPreviewProps) {
+export default function MealPreview({ meals = [] }: MealPreviewProps) {
   const router = useRouter();
 
-  // Show only the first 3 meals
+  // Show only the first 3 meals safely
   const previewMeals = meals.slice(0, 3);
 
   const handleSeeMore = () => {
@@ -41,7 +41,7 @@ export default function MealPreview({ meals }: MealPreviewProps) {
                 <img
                   className="w-50 h-50 rounded-2xl object-cover mx-auto"
                   src={meal.imageUrl}
-                  alt=""
+                  alt={meal.name}
                 />
               </div>
               <p className="font-semibold my-2">{meal.description}</p>

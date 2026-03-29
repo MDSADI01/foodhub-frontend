@@ -51,7 +51,7 @@ export function ProfileDrop({ session }: sessionType) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button className="rounded-full w-0">
-          <ProfilePic></ProfilePic>
+          <ProfilePic session={session}></ProfilePic>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="start">

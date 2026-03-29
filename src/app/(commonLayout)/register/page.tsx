@@ -1,8 +1,10 @@
 import { userService } from "@/app/services/user.service";
 import { RegistrationForm } from "@/components/modules/authentication/registration-form";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 
 export default async function Register() {
+  await connection()
   const { data } = await userService.getSession();
 
   if (data) {

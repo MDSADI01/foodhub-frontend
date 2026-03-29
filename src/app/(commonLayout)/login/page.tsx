@@ -2,8 +2,10 @@ import { userService } from "@/app/services/user.service";
 import { LoginForm } from "@/components/modules/authentication/login-form";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 
 export default async function Login() {
+  await connection()
   const { data } = await userService.getSession();
 
   if (data) {

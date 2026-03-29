@@ -4,7 +4,7 @@ import React from "react";
 
 const GetAllUsers = async () => {
   const getAllUsers = await adminService.getAllUsers();
-  const usersList = getAllUsers?.data?.data;
+  const usersList = getAllUsers?.data?.data || [];
 
   return <div>
     <ManageUsersStatusTable usersList={usersList}></ManageUsersStatusTable>

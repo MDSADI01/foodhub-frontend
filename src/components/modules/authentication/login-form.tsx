@@ -50,17 +50,17 @@ export function LoginForm({
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Logging User");
       try {
-        const { data, error } = await authClient.signIn.email(value);
-   
-
-        if (data) {
-          toast.success("User logged in Successfully", { id: toastId });
-        }
-
+        const { data, error } = await authClient.signIn.email({
+          email: value.email,
+          password: value.password,
+        });
+        
         if (error) {
           return toast.error(error.message, { id: toastId });
         }
-
+        
+        toast.success("User logged in Successfully", { id: toastId });
+        
         router.push(redirect);
         router.refresh();
       } catch (err) {
