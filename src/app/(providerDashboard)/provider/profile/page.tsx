@@ -1,5 +1,6 @@
 import { customerService } from "@/app/services/customer.service";
 import { providerService } from "@/app/services/providerService";
+import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -40,6 +41,8 @@ const ProviderProfile = () => {
     const userRes = await customerService.updateProfile(userData);
 
     const res = await providerService.createProviderProfile(profileData);
+    
+    redirect("/provider/menu");
   };
 
   return (

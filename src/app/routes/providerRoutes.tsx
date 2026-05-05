@@ -8,10 +8,7 @@ export const providerRoutes =
             title: "Dashboard",
             url: "/provider/dashboard",
           },
-          {
-            title: "Update Profile",
-            url: "/provider/profile",
-          },
+
           {
             title: "Customize Menu",
             url: "/provider/menu",

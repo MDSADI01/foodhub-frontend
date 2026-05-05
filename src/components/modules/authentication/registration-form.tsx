@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -33,6 +34,8 @@ import { toast } from "sonner";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { FaGoogle } from "react-icons/fa";
+import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
   name: z.string().min(6, "Name is required"),
@@ -68,7 +71,6 @@ export function RegistrationForm({
           toast.error(signUpError.message, { id: toastId });
           return;
         }
-      
 
         if (signUpData) {
           const { data: loginData, error: loginError } =
@@ -96,11 +98,30 @@ export function RegistrationForm({
     },
   });
 
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  const handleGoogleLogin = async () => {
+    setGoogleLoading(true);
+    try {
+      // BetterAuth expects an absolute callback URL for OAuth redirects.
+      const callbackURL = new URL(redirect, window.location.origin).toString();
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL,
+      });
+    } catch (err: any) {
+      toast.error(err?.message || "Google sign-in failed");
+      setGoogleLoading(false);
+    }
+  };
+
   return (
-    <Card {...props}>
-      <CardHeader>
-        <CardTitle>Create an account</CardTitle>
-        <CardDescription>
+    <Card className="border-2 shadow-xl" {...props}>
+      <CardHeader className="space-y-1">
+        <CardTitle className="text-2xl text-center">
+          Create an account
+        </CardTitle>
+        <CardDescription className="text-center">
           Enter your information below to create your account
         </CardDescription>
       </CardHeader>
@@ -111,7 +132,7 @@ export function RegistrationForm({
           form.handleSubmit();
         }}
       >
-        <CardContent>
+        <CardContent className="space-y-4">
           <FieldGroup>
             <form.Field
               name="name"
@@ -124,6 +145,7 @@ export function RegistrationForm({
                     <Input
                       id={field.name}
                       type="text"
+                      placeholder="John Doe"
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -147,6 +169,7 @@ export function RegistrationForm({
                     <Input
                       id={field.name}
                       type="email"
+                      placeholder="m@example.com"
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -197,35 +220,63 @@ export function RegistrationForm({
                       value={field.state.value}
                       onValueChange={field.handleChange}
                     >
-                      <SelectTrigger id="role">
-                        <SelectValue placeholder="Select role" />
+                      <SelectTrigger id="role" className="h-11">
+                        <SelectValue placeholder="Select a role" />
                       </SelectTrigger>
-
                       <SelectContent>
                         <SelectItem value="CUSTOMER">Customer</SelectItem>
                         <SelectItem value="PROVIDER">Provider</SelectItem>
                       </SelectContent>
                     </Select>
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
                   </Field>
                 );
               }}
             />
           </FieldGroup>
-        </CardContent>
-        <CardFooter className="flex justify-center mt-5">
-          <Button className="w-full" type="submit">
-            Create Account
+
+          <Button
+            className="w-full mt-4"
+            type="submit"
+            disabled={form.state.isSubmitting}
+          >
+            {form.state.isSubmitting ? "Creating account..." : "Create Account"}
           </Button>
-        </CardFooter>
+
+          <div className="relative my-4">
+            <div className="absolute inset-0 flex items-center">
+              <Separator />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Or sign up with
+              </span>
+            </div>
+          </div>
+
+          <Button
+            variant="outline"
+            type="button"
+            className="w-full gap-2 font-semibold"
+            onClick={handleGoogleLogin}
+            disabled={googleLoading}
+          >
+            {googleLoading ? (
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+            ) : (
+              <FaGoogle className="h-4 w-4 text-red-500" />
+            )}
+            {googleLoading ? "Redirecting..." : "Continue with Google"}
+          </Button>
+        </CardContent>
       </form>
-      <div className="flex justify-center items-center font-bold">
-        Are you already registered ?{" "}
-        <span className="ml-2 text-green-800">
-          <Link href="/login">Login</Link>
-        </span>
+      <div className="flex justify-center items-center pb-6 text-sm">
+        Already have an account?
+        <Link
+          href="/login"
+          className="ml-1 text-primary font-bold hover:underline"
+        >
+          Login now
+        </Link>
       </div>
     </Card>
   );

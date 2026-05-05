@@ -44,7 +44,7 @@ export const customerService = {
       const res = await fetch(`${API_URL}/orders`, {
         headers: {
           Cookie: cookieStore.toString(),
-        }
+        },
       });
       const data = await res.json();
 
@@ -64,22 +64,22 @@ export const customerService = {
     }
   },
 
-  getReviews : async function (payload:{
-    customerId:String,
-    mealId:string,
-    rating:number,
-    comment:string
+  getReviews: async function (payload: {
+    customerId: String;
+    mealId: string;
+    rating: number;
+    comment: string;
   }) {
     try {
       const cookieStore = await cookies();
 
       const res = await fetch(`${API_URL}/reviews`, {
-        method:"POST",
+        method: "POST",
         headers: {
-          "Content-Type" : "application/json",
+          "Content-Type": "application/json",
           Cookie: cookieStore.toString(),
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
 
@@ -99,14 +99,18 @@ export const customerService = {
     }
   },
 
-  createReview : async function (mealId: string,rating:Number,comment:string) {
+  createReview: async function (
+    mealId: string,
+    rating: Number,
+    comment: string,
+  ) {
     try {
       const cookieStore = await cookies();
 
       const res = await fetch(`${API_URL}/reviews`, {
         headers: {
           Cookie: cookieStore.toString(),
-        }
+        },
       });
       const data = await res.json();
 

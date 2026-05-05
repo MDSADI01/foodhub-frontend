@@ -7,12 +7,16 @@ const CommonLayout = async ({ children }: { children: React.ReactNode }) => {
   const { data: session } = await userService.getSession();
 
   return (
-    <div className="mx-5">
-      
-      <Navbar session={session} ></Navbar>
+    <div className="min-h-screen flex flex-col">
+      {/* Navbar is fixed/sticky — rendered outside the flow */}
+      <Navbar session={session} />
 
-      {children}
-      <Footer></Footer>
+      {/* Main content — offset for fixed navbar */}
+      <main className="flex-1 pt-24 lg:pt-28">
+        {children}
+      </main>
+
+      <Footer />
     </div>
   );
 };

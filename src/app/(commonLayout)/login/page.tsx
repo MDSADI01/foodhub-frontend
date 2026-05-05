@@ -13,7 +13,7 @@ export default async function Login() {
   }
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+    <div className="flex min-h-svh w-full items-center justify-center px-6 pt-28 pb-16 md:px-10 md:pt-32 md:pb-20">
       <div className="w-full max-w-sm">
         <LoginForm />
       </div>

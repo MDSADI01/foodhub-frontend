@@ -50,9 +50,9 @@ export function ProfileDrop({ session }: sessionType) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="rounded-full w-0">
+        <button className="flex items-center justify-center rounded-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all">
           <ProfilePic session={session}></ProfilePic>
-        </Button>
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="start">
         <DropdownMenuGroup>
